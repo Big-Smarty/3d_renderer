@@ -5,7 +5,6 @@
 #include <utils/utils.hpp>
 #include <vector>
 #include <vk_mem_alloc.h>
-#include <vulkan/vulkan_core.h>
 
 namespace bs::engine::context {
 class Context {
@@ -14,6 +13,11 @@ public:
   ~Context();
 
 private:
+  std::vector<const char*> m_instance_extensions;
+  std::vector<const char*> m_instance_layers;
+
+  std::vector<const char*> m_device_extensions;
+
   VkInstance m_instance;
   VkPhysicalDevice m_physical_device;
   VkDevice m_device;
@@ -25,6 +29,7 @@ private:
   std::vector<VkImageView> m_swapchain_image_views;
 
   VkCommandPool m_command_pool;
+  VkCommandBuffer m_command_buffer;
 
   utils::AllocatedImage *m_depth_image;
 

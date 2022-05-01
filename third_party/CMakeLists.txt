@@ -17,9 +17,11 @@ target_sources(
 
 target_include_directories(tinyobjloader PUBLIC tinyobjloader)
 
-add_subdirectory(vkbootstrap)
+add_subdirectory(vk-bootstrap)
 add_subdirectory(vma)
 add_subdirectory(spdlog)
+add_subdirectory(volk)
+
 
 include_directories("vkbootstrap/src/")
 include_directories("vma/include/")

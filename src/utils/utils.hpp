@@ -1,8 +1,8 @@
 #pragma once
 
 #include <spdlog/spdlog.h>
+#include <volk.h>
 #include <vk_mem_alloc.h>
-#include <vulkan/vulkan_core.h>
 
 #define VK_CHECK(x)                                                            \
   {                                                                            \
@@ -10,7 +10,7 @@
     if (res == 0) {                                                            \
       spdlog::debug("{0}: {1}", #x, res);                                      \
     } else {                                                                   \
-      spdlog::error("{0}: {1}! Exiting...", #x, res);                          \
+      spdlog::error("{0}: {1} Exiting...", #x, res);                          \
       exit(res);                                                               \
     }                                                                          \
   }

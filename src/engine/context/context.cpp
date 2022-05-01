@@ -1,5 +1,6 @@
 #include "context.hpp"
 
+#include <cstdint>
 #include <utils/utils.hpp>
 
 #include <SDL.h>
@@ -16,47 +17,78 @@ Context::Context() {
                               SDL_WINDOWPOS_CENTERED, 640, 480,
                               SDL_WINDOW_VULKAN | SDL_WINDOW_SHOWN);
 
-  vkb::InstanceBuilder vkb_instance_builder;
-  vkb::Instance vkb_instance =
-      vkb_instance_builder.set_app_name("BS Engine (improved)")
-          .request_validation_layers(1)
-          .require_api_version(1, 3)
-          .build()
-          .value();
-  m_instance = vkb_instance.instance;
+  VK_CHECK(volkInitialize());
+
+  uint32_t instance_extension_count{0};
+  SDL_Vulkan_GetInstanceExtensions(m_window, &instance_extension_count, nullptr);
+  m_instance_extensions.resize(instance_extension_count);
+  SDL_Vulkan_GetInstanceExtensions(m_window, &instance_extension_count, m_instance_extensions.data());
+  m_instance_layers.push_back("VK_LAYER_KHRONOS_validation");
+
+  VkApplicationInfo app_I = {
+      .sType = VK_STRUCTURE_TYPE_APPLICATION_INFO,
+      .pApplicationName = "BS Engine",
+      .applicationVersion = 1,
+      .pEngineName = "BS Engine",
+      .engineVersion = 1,
+      .apiVersion = VK_API_VERSION_1_3,
+  };
+  VkInstanceCreateInfo instance_CI = {
+    .sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO,
+    .pApplicationInfo = &app_I,
+    .enabledLayerCount = static_cast<uint32_t>(m_instance_layers.size()),
+    .ppEnabledLayerNames = m_instance_layers.data(),
+    .enabledExtensionCount = static_cast<uint32_t>(m_instance_extensions.size()),
+    .ppEnabledExtensionNames = m_instance_extensions.data(),
+  };
+  VK_CHECK(vkCreateInstance(&instance_CI, nullptr, &m_instance));
+
+  volkLoadInstance(m_instance);
 
   SDL_Vulkan_CreateSurface(m_window, m_instance, &m_surface);
 
-  vkb::PhysicalDeviceSelector vkb_selector{vkb_instance};
-  vkb::PhysicalDevice vkb_physical_device =
-      vkb_selector.set_minimum_version(1, 3)
-          .set_surface(m_surface)
-          .select_first_device_unconditionally()
-          .add_required_extension("VK_KHR_swapchain")
-          .add_required_extension("VK_KHR_dynamic_rendering")
-          .select()
-          .value();
-  m_physical_device = vkb_physical_device.physical_device;
+  std::vector<VkPhysicalDevice> physical_devices;
+  std::vector<VkPhysicalDeviceProperties> physical_devices_properties;
+  uint32_t physical_devices_count{0};
+  VK_CHECK(vkEnumeratePhysicalDevices(m_instance, &physical_devices_count, nullptr));
+  physical_devices.resize(physical_devices_count);
+  physical_devices_properties.resize(physical_devices_count);
+  VK_CHECK(vkEnumeratePhysicalDevices(m_instance, &physical_devices_count, physical_devices.data()));
 
-  VkPhysicalDeviceDynamicRenderingFeaturesKHR
-      dynamic_rendering_feature{
-          .sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DYNAMIC_RENDERING_FEATURES,
-          .dynamicRendering = VK_TRUE,
-      };
+  for(auto vpd : physical_devices) {
+    physical_devices_properties.resize(physical_devices_properties.size() + 1);
+    vkGetPhysicalDeviceProperties(vpd, &physical_devices_properties[physical_devices_properties.size()]);
+  }
+  spdlog::info("enumerated physical devices");
 
-  vkb::DeviceBuilder vkb_device_builder(vkb_physical_device);
-  vkb::Device vkb_device =
-      vkb_device_builder.add_pNext(&dynamic_rendering_feature).build().value();
+  m_device_extensions.push_back("VK_KHR_dynamic_rendering");
+  m_device_extensions.push_back("VK_KHR_swapchain");
+  VkPhysicalDeviceDynamicRenderingFeaturesKHR dynamic_rendering_feature{
+      .sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DYNAMIC_RENDERING_FEATURES,
+      .dynamicRendering = VK_TRUE,
+  };
+  const float& queue_priorities = {0.0f};
+  VkDeviceQueueCreateInfo device_queue_CI = {
+    .sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO,
+    .queueCount = 1,
+    .pQueuePriorities = &queue_priorities,
+  };
+  VkDeviceCreateInfo device_CI = {
+    .sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO,
+    .pNext = &dynamic_rendering_feature,
+    .queueCreateInfoCount = 1,
+    .pQueueCreateInfos = &device_queue_CI,
+    .enabledExtensionCount = static_cast<uint32_t>(m_device_extensions.size()),
+    .ppEnabledExtensionNames = m_device_extensions.data(),
+  };
+  VK_CHECK(vkCreateDevice(m_physical_device, &device_CI, nullptr, &m_device));
 
-  m_device = vkb_device.device;
+  volkLoadDevice(m_device);
 
   VkPhysicalDeviceProperties physical_device_properties{};
   vkGetPhysicalDeviceProperties(m_physical_device, &physical_device_properties);
   spdlog::info("\nSelected physical device: {0}",
                physical_device_properties.deviceName);
-
-  m_queue = vkb_device.get_queue(vkb::QueueType::graphics).value();
-  m_queue_family = vkb_device.get_queue_index(vkb::QueueType::graphics).value();
 
   vkb::SwapchainBuilder vkb_swapchain_builder(m_physical_device, m_device,
                                               m_surface);
@@ -107,8 +139,19 @@ Context::Context() {
   VkCommandPoolCreateInfo command_pool_CI = {
       .sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO,
       .queueFamilyIndex = m_queue_family};
+  VK_CHECK(vkCreateCommandPool(m_device, &command_pool_CI, nullptr,
+                               &m_command_pool));
+  VkCommandBufferAllocateInfo command_buffer_AI = {
+      .sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO,
+      .commandPool = m_command_pool,
+      .level = VK_COMMAND_BUFFER_LEVEL_PRIMARY,
+      .commandBufferCount = 1,
+  };
+  VK_CHECK(vkAllocateCommandBuffers(m_device, &command_buffer_AI,
+                                    &m_command_buffer));
 }
 Context::~Context() {
+  vkFreeCommandBuffers(m_device, m_command_pool, 1, &m_command_buffer);
   for (auto iv : m_swapchain_image_views) {
     vkDestroyImageView(m_device, iv, nullptr);
   }

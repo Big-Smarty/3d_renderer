@@ -1,4 +1,5 @@
 #include "engine.hpp"
+#include <spdlog/spdlog.h>
 
 namespace bs::engine {
 Engine::Engine() {}

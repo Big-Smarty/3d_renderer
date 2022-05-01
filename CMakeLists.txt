@@ -9,6 +9,8 @@ set(CMAKE_LINKER_FLAGS_DEBUG "${CMAKE_LINKER_FLAGS_DEBUG} -fno-omit-frame-pointe
 add_compile_options(-g)
 
 include_directories("${PROJECT_SOURCE_DIR}/src/")
+include_directories("${PROJECT_SOURCE_DIR}/third_party/spdlog/include/")
+include_directories("${PROJECT_SOURCE_DIR}/third_party/volk/")
 
 find_package(Vulkan REQUIRED)
 find_package(SDL2 REQUIRED)

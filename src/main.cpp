@@ -1,5 +1,4 @@
 #include "engine/engine.hpp"
-#include <spdlog/spdlog.h>
 
 int main() {
   spdlog::set_pattern("[%^%l%$] %v");

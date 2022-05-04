@@ -13,10 +13,10 @@ public:
   ~Context();
 
 private:
-  std::vector<const char*> m_instance_extensions;
-  std::vector<const char*> m_instance_layers;
+  std::vector<const char *> m_instance_extensions;
+  std::vector<const char *> m_instance_layers;
 
-  std::vector<const char*> m_device_extensions;
+  std::vector<const char *> m_device_extensions;
 
   VkInstance m_instance;
   VkPhysicalDevice m_physical_device;
@@ -31,7 +31,7 @@ private:
   VkCommandPool m_command_pool;
   VkCommandBuffer m_command_buffer;
 
-  utils::AllocatedImage *m_depth_image;
+  std::unique_ptr<utils::AllocatedImage> m_depth_image;
 
   VmaAllocator m_allocator;
 

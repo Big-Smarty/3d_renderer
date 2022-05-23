@@ -9,6 +9,7 @@
 #include <SDL_video.h>
 
 #include <SDL2/SDL_vulkan.h>
+#include <vulkan/vulkan_core.h>
 
 #define VMA_IMPLEMENTATION
 #include <vk_mem_alloc.h>
@@ -78,9 +79,14 @@ Context::Context() {
                physical_device_properties.deviceName);
 
   m_device_extensions.push_back("VK_KHR_swapchain");
+  m_device_extensions.push_back("VK_KHR_dynamic_rendering");
   VkPhysicalDeviceDynamicRenderingFeaturesKHR dynamic_rendering_feature{
       .sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DYNAMIC_RENDERING_FEATURES,
       .dynamicRendering = VK_TRUE,
+  };
+  VkPhysicalDeviceFeatures2 device_features2 = {
+    .sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FEATURES_2,
+    .pNext = &dynamic_rendering_feature,
   };
   const float &queue_priorities = {0.0f};
   VkDeviceQueueCreateInfo device_queue_CI = {
@@ -90,6 +96,7 @@ Context::Context() {
   };
   VkDeviceCreateInfo device_CI = {
       .sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO,
+      .pNext = &device_features2,
       .queueCreateInfoCount = 1,
       .pQueueCreateInfos = &device_queue_CI,
       .enabledExtensionCount =
@@ -147,7 +154,8 @@ Context::Context() {
   VmaAllocationCreateInfo depth_image_allocation_CI = {
       .usage = VMA_MEMORY_USAGE_AUTO,
   };
-  m_depth_image = std::make_unique<utils::AllocatedImage>(m_allocator, depth_image_CI, depth_image_allocation_CI);
+  m_depth_image = std::make_unique<utils::AllocatedImage>(
+      m_allocator, depth_image_CI, depth_image_allocation_CI);
 
   VkCommandPoolCreateInfo command_pool_CI = {
       .sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO,

@@ -12,6 +12,11 @@ public:
   Context();
   ~Context();
 
+  VkInstance instance() {return m_instance;};
+  VkPhysicalDevice physical_Device() {return m_physical_device;};
+  VkDevice device() {return m_device;};
+  VkQueue queue() {return m_queue;};
+
 private:
   std::vector<const char *> m_instance_extensions;
   std::vector<const char *> m_instance_layers;

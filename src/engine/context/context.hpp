@@ -10,6 +10,11 @@ namespace bs::engine::context {
 class Context {
 public:
   Context();
+  Context(const Context &) = delete;
+  Context(Context &&) noexcept;
+  Context &operator=(const Context &) = delete;
+  Context &operator=(Context &&) = delete;
+
   ~Context();
 
   VkInstance instance() {return m_instance;};

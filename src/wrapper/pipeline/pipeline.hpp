@@ -5,15 +5,17 @@
 namespace bs::wrapper::pipeline {
 class Pipeline {
 public:
-  Pipeline(bs::engine::context::Context &_context);
+  Pipeline(Pipeline &pipeline);
+  Pipeline(const Pipeline &) = delete;
+  Pipeline(Pipeline &&) noexcept;
+  Pipeline &operator=(const Pipeline &) = delete;
+  Pipeline &operator=(Pipeline &&) = delete;
+
   ~Pipeline();
 
-  Pipeline compute_pipeline();
-  Pipeline graphics_pipeline();
+  VkPipeline *pipeline_ptr() { return &m_pipeline; }
 
 private:
-  bs::engine::context::Context &m_context;
-
   VkPipeline m_pipeline;
 };
 } // namespace bs::wrapper::pipeline

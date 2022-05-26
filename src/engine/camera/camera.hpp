@@ -7,7 +7,7 @@ namespace bs::engine::camera {
       Camera(const Camera &) = delete;
       Camera(Camera &&) noexcept;
       Camera &operator=(const Camera &) = delete;
-      Camera &operaror=(Camera &&) = delete;
+      Camera &operator=(Camera &&) = delete;
 
       ~Camera();
   };

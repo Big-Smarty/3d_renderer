@@ -5,9 +5,6 @@
 #include <exception>
 #include <utils/utils.hpp>
 
-#include <SDL.h>
-#include <SDL_video.h>
-
 #include <SDL2/SDL_vulkan.h>
 #include <vulkan/vulkan_core.h>
 

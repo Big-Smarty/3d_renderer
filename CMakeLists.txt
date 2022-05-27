@@ -11,6 +11,7 @@ add_compile_options(-g)
 include_directories("${PROJECT_SOURCE_DIR}/src/")
 include_directories("${PROJECT_SOURCE_DIR}/third_party/spdlog/include/")
 include_directories("${PROJECT_SOURCE_DIR}/third_party/volk/")
+include_directories("${PROJECT_SOURCE_DIR}/third_party/vma/include/")
 
 find_package(Vulkan REQUIRED)
 find_package(SDL2 REQUIRED)

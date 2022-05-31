@@ -1,0 +1,2 @@
+add_subdirectory(allocated_image)
+add_subdirectory(pipeline)

@@ -1,15 +1,14 @@
-#include "context.hpp"
+#include "engine/context/context.hpp"
+#include "engine/utils/utils.hpp"
 
 #include <algorithm>
 #include <cstdint>
 #include <exception>
-#include <utils/utils.hpp>
 
 #include <SDL2/SDL_vulkan.h>
-#include <vulkan/vulkan_core.h>
 
-#define VMA_IMPLEMENTATION
-#include <vk_mem_alloc.h>
+#define VOLK_IMPLEMENTATION
+#include <volk.h>
 
 namespace bs::engine::context {
 Context::Context() {
@@ -82,8 +81,8 @@ Context::Context() {
       .dynamicRendering = VK_TRUE,
   };
   VkPhysicalDeviceFeatures2 device_features2 = {
-    .sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FEATURES_2,
-    .pNext = &dynamic_rendering_feature,
+      .sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FEATURES_2,
+      .pNext = &dynamic_rendering_feature,
   };
   const float &queue_priorities = {0.0f};
   VkDeviceQueueCreateInfo device_queue_CI = {
@@ -151,8 +150,9 @@ Context::Context() {
   VmaAllocationCreateInfo depth_image_allocation_CI = {
       .usage = VMA_MEMORY_USAGE_AUTO,
   };
-  m_depth_image = std::make_unique<utils::AllocatedImage>(
-      m_allocator, depth_image_CI, depth_image_allocation_CI);
+  m_depth_image =
+      std::make_unique<bs::wrappers::allocated_image::AllocatedImage>(
+          m_allocator, depth_image_CI, depth_image_allocation_CI);
 
   VkCommandPoolCreateInfo command_pool_CI = {
       .sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO,

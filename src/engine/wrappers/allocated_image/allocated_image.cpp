@@ -1,6 +1,7 @@
-#include "utils.hpp"
+#include "engine/wrappers/allocated_image/allocated_image.hpp"
+#include "engine/utils/utils.hpp"
 
-namespace bs::utils {
+namespace bs::wrappers::allocated_image {
 AllocatedImage::AllocatedImage(
     VmaAllocator _allocator, const VkImageCreateInfo &_image_create_info,
     const VmaAllocationCreateInfo &_allocation_create_info) {
@@ -12,4 +13,4 @@ AllocatedImage::AllocatedImage(
 AllocatedImage::~AllocatedImage() {
   vmaDestroyImage(m_allocator, m_image, m_allocation);
 }
-} // namespace bs::utils
+} // namespace bs::wrappers::allocated_image

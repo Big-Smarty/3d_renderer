@@ -1,10 +1,14 @@
 #pragma once
 
+#define VK_NO_PROTOTYPES
+#include "engine/wrappers/allocated_image/allocated_image.hpp"
+#include "engine/utils/utils.hpp"
+
+#include <memory>
+
 #include <SDL2/SDL.h>
 #include <cstdint>
-#include <utils/utils.hpp>
 #include <vector>
-#include <vk_mem_alloc.h>
 
 namespace bs::engine::context {
 class Context {
@@ -17,10 +21,10 @@ public:
 
   ~Context();
 
-  VkInstance instance() {return m_instance;};
-  VkPhysicalDevice physical_Device() {return m_physical_device;};
-  VkDevice device() {return m_device;};
-  VkQueue queue() {return m_queue;};
+  VkInstance instance() { return m_instance; };
+  VkPhysicalDevice physical_Device() { return m_physical_device; };
+  VkDevice device() { return m_device; };
+  VkQueue queue() { return m_queue; };
 
 private:
   std::vector<const char *> m_instance_extensions;
@@ -41,9 +45,9 @@ private:
   VkCommandPool m_command_pool;
   VkCommandBuffer m_command_buffer;
 
-  std::unique_ptr<utils::AllocatedImage> m_depth_image;
+  std::unique_ptr<bs::wrappers::allocated_image::AllocatedImage> m_depth_image;
 
-  VmaAllocator m_allocator;
+  VmaAllocator m_allocator{};
 
   SDL_Window *m_window;
 };

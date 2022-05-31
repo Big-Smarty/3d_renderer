@@ -1,5 +1,11 @@
-#define VK_NO_PROTOTYPES
-#include <vk_mem_alloc.h>
+struct VkImageCreateInfo;
+struct VmaAllocationCreateInfo;
+struct VkImage_T;
+typedef struct VkImage_T *VkImage;
+struct VmaAllocator_T;
+typedef struct VmaAllocator_T *VmaAllocator;
+struct VmaAllocation_T;
+typedef struct VmaAllocation_T *VmaAllocation;
 
 namespace bs::wrappers::allocated_image {
 struct AllocatedImage {
@@ -18,4 +24,4 @@ private:
 
   VmaAllocator m_allocator;
 };
-} // namespace bs::utils
+} // namespace bs::wrappers::allocated_image

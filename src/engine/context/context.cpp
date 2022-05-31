@@ -1,5 +1,6 @@
 #include "engine/context/context.hpp"
 #include "engine/utils/utils.hpp"
+#include "engine/wrappers/allocated_image/allocated_image.hpp"
 
 #include <algorithm>
 #include <cstdint>
@@ -152,9 +153,12 @@ Context::Context() {
   VmaAllocationCreateInfo depth_image_allocation_CI = {
       .usage = VMA_MEMORY_USAGE_AUTO,
   };
+
+  bs::wrappers::allocated_image::AllocatedImage temp_image(
+      m_allocator, depth_image_CI, depth_image_allocation_CI);
   m_depth_image =
-      std::make_unique<bs::wrappers::allocated_image::AllocatedImage>(
-          m_allocator, depth_image_CI, depth_image_allocation_CI);
+      std::make_unique<bs::wrappers::allocated_image::AllocatedImage *>(
+          &temp_image);
 
   VkCommandPoolCreateInfo command_pool_CI = {
       .sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO,

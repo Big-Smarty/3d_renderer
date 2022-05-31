@@ -1,6 +1,8 @@
 #include "engine/wrappers/allocated_image/allocated_image.hpp"
 #include "engine/utils/utils.hpp"
 
+#include <vk_mem_alloc.h>
+
 namespace bs::wrappers::allocated_image {
 AllocatedImage::AllocatedImage(
     VmaAllocator _allocator, const VkImageCreateInfo &_image_create_info,

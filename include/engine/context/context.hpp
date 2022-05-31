@@ -1,7 +1,5 @@
 #pragma once
 
-#define VK_NO_PROTOTYPES
-#include "engine/wrappers/allocated_image/allocated_image.hpp"
 #include "engine/utils/utils.hpp"
 
 #include <memory>
@@ -9,6 +7,32 @@
 #include <SDL2/SDL.h>
 #include <cstdint>
 #include <vector>
+
+namespace bs::wrappers::allocated_image {
+class AllocatedImage;
+} // namespace bs::wrappers::allocated_image
+struct VkInstance_T;
+typedef struct VkInstance_T *VkInstance;
+struct VkPhysicalDevice_T;
+typedef struct VkPhysicalDevice_T *VkPhysicalDevice;
+struct VkDevice_T;
+typedef struct VkDevice_T *VkDevice;
+struct VkQueue_T;
+typedef struct VkQueue_T *VkQueue;
+struct VkSurfaceKHR_T;
+typedef struct VkSurfaceKHR_T *VkSurfaceKHR;
+struct VkSwapchainKHR_T;
+typedef struct VkSwapchainKHR_T *VkSwapchainKHR;
+struct VkImage_T;
+typedef struct VkImage_T *VkImage;
+struct VkImageView_T;
+typedef struct VkImageView_T *VkImageView;
+struct VkCommandPool_T;
+typedef struct VkCommandPool_T *VkCommandPool;
+struct VkCommandBuffer_T;
+typedef struct VkCommandBuffer_T *VkCommandBuffer;
+struct VmaAllocator_T;
+typedef struct VmaAllocator_T *VmaAllocator;
 
 namespace bs::engine::context {
 class Context {
@@ -45,7 +69,8 @@ private:
   VkCommandPool m_command_pool;
   VkCommandBuffer m_command_buffer;
 
-  std::unique_ptr<bs::wrappers::allocated_image::AllocatedImage> m_depth_image;
+  std::unique_ptr<bs::wrappers::allocated_image::AllocatedImage *>
+      m_depth_image;
 
   VmaAllocator m_allocator{};
 

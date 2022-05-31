@@ -56,32 +56,42 @@
 },
 {
   "directory": "/home/bigsmarty/projects/3d_renderer/build",
-  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -DVMA_DEBUG_ALWAYS_DEDICATED_MEMORY=0 -DVMA_DEBUG_DONT_EXCEED_MAX_MEMORY_ALLOCATION_COUNT=0 -DVMA_DEBUG_GLOBAL_MUTEX=0 -DVMA_DEBUG_INITIALIZE_ALLOCATIONS=0 -DVMA_DYNAMIC_VULKAN_FUNCTIONS=0 -DVMA_RECORDING_ENABLED=0 -DVMA_STATIC_VULKAN_FUNCTIONS=1 -I/home/bigsmarty/projects/3d_renderer/third_party/spdlog/include -I/home/bigsmarty/projects/3d_renderer/third_party/volk -I/home/bigsmarty/projects/3d_renderer/third_party/vma/include -I/home/bigsmarty/projects/3d_renderer/include -I/home/bigsmarty/projects/3d_renderer/third_party/glm -isystem /usr/include/SDL2 -O3 -DNDEBUG -g -std=gnu++20 -o src/CMakeFiles/example.dir/main.cpp.o -c /home/bigsmarty/projects/3d_renderer/src/main.cpp",
-  "file": "/home/bigsmarty/projects/3d_renderer/src/main.cpp"
-},
-{
-  "directory": "/home/bigsmarty/projects/3d_renderer/build",
-  "command": "/usr/bin/c++ -DVMA_DEBUG_ALWAYS_DEDICATED_MEMORY=0 -DVMA_DEBUG_DONT_EXCEED_MAX_MEMORY_ALLOCATION_COUNT=0 -DVMA_DEBUG_GLOBAL_MUTEX=0 -DVMA_DEBUG_INITIALIZE_ALLOCATIONS=0 -DVMA_DYNAMIC_VULKAN_FUNCTIONS=0 -DVMA_RECORDING_ENABLED=0 -DVMA_STATIC_VULKAN_FUNCTIONS=1 -I/home/bigsmarty/projects/3d_renderer/third_party/spdlog/include -I/home/bigsmarty/projects/3d_renderer/third_party/volk -I/home/bigsmarty/projects/3d_renderer/third_party/vma/include -I/home/bigsmarty/projects/3d_renderer/include -O3 -DNDEBUG -g -std=gnu++20 -o src/utils/CMakeFiles/utils.dir/utils.cpp.o -c /home/bigsmarty/projects/3d_renderer/src/utils/utils.cpp",
-  "file": "/home/bigsmarty/projects/3d_renderer/src/utils/utils.cpp"
-},
-{
-  "directory": "/home/bigsmarty/projects/3d_renderer/build",
-  "command": "/usr/bin/c++ -I/home/bigsmarty/projects/3d_renderer/third_party/spdlog/include -I/home/bigsmarty/projects/3d_renderer/third_party/volk -I/home/bigsmarty/projects/3d_renderer/third_party/vma/include -I/home/bigsmarty/projects/3d_renderer/include -O3 -DNDEBUG -g -std=gnu++20 -o src/utils/init_structs/CMakeFiles/init_structs.dir/init.cpp.o -c /home/bigsmarty/projects/3d_renderer/src/utils/init_structs/init.cpp",
-  "file": "/home/bigsmarty/projects/3d_renderer/src/utils/init_structs/init.cpp"
-},
-{
-  "directory": "/home/bigsmarty/projects/3d_renderer/build",
-  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -DVMA_DEBUG_ALWAYS_DEDICATED_MEMORY=0 -DVMA_DEBUG_DONT_EXCEED_MAX_MEMORY_ALLOCATION_COUNT=0 -DVMA_DEBUG_GLOBAL_MUTEX=0 -DVMA_DEBUG_INITIALIZE_ALLOCATIONS=0 -DVMA_DYNAMIC_VULKAN_FUNCTIONS=0 -DVMA_RECORDING_ENABLED=0 -DVMA_STATIC_VULKAN_FUNCTIONS=1 -I/home/bigsmarty/projects/3d_renderer/third_party/spdlog/include -I/home/bigsmarty/projects/3d_renderer/third_party/volk -I/home/bigsmarty/projects/3d_renderer/third_party/vma/include -I/home/bigsmarty/projects/3d_renderer/include -O3 -DNDEBUG -g -std=gnu++20 -o src/wrapper/pipeline/CMakeFiles/pipeline.dir/pipeline.cpp.o -c /home/bigsmarty/projects/3d_renderer/src/wrapper/pipeline/pipeline.cpp",
-  "file": "/home/bigsmarty/projects/3d_renderer/src/wrapper/pipeline/pipeline.cpp"
-},
-{
-  "directory": "/home/bigsmarty/projects/3d_renderer/build",
   "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -DVMA_DEBUG_ALWAYS_DEDICATED_MEMORY=0 -DVMA_DEBUG_DONT_EXCEED_MAX_MEMORY_ALLOCATION_COUNT=0 -DVMA_DEBUG_GLOBAL_MUTEX=0 -DVMA_DEBUG_INITIALIZE_ALLOCATIONS=0 -DVMA_DYNAMIC_VULKAN_FUNCTIONS=0 -DVMA_RECORDING_ENABLED=0 -DVMA_STATIC_VULKAN_FUNCTIONS=1 -I/home/bigsmarty/projects/3d_renderer/third_party/spdlog/include -I/home/bigsmarty/projects/3d_renderer/third_party/volk -I/home/bigsmarty/projects/3d_renderer/third_party/vma/include -I/home/bigsmarty/projects/3d_renderer/include -I/home/bigsmarty/projects/3d_renderer/third_party/glm -isystem /usr/include/SDL2 -O3 -DNDEBUG -g -std=gnu++20 -o src/engine/CMakeFiles/engine.dir/engine.cpp.o -c /home/bigsmarty/projects/3d_renderer/src/engine/engine.cpp",
   "file": "/home/bigsmarty/projects/3d_renderer/src/engine/engine.cpp"
 },
 {
   "directory": "/home/bigsmarty/projects/3d_renderer/build",
-  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -DVMA_DEBUG_ALWAYS_DEDICATED_MEMORY=0 -DVMA_DEBUG_DONT_EXCEED_MAX_MEMORY_ALLOCATION_COUNT=0 -DVMA_DEBUG_GLOBAL_MUTEX=0 -DVMA_DEBUG_INITIALIZE_ALLOCATIONS=0 -DVMA_DYNAMIC_VULKAN_FUNCTIONS=0 -DVMA_RECORDING_ENABLED=0 -DVMA_STATIC_VULKAN_FUNCTIONS=1 -I/home/bigsmarty/projects/3d_renderer/third_party/spdlog/include -I/home/bigsmarty/projects/3d_renderer/third_party/volk -I/home/bigsmarty/projects/3d_renderer/third_party/vma/include -I/home/bigsmarty/projects/3d_renderer/include -I/home/bigsmarty/projects/3d_renderer/third_party/glm -isystem /usr/include/SDL2 -O3 -DNDEBUG -g -std=gnu++20 -o src/engine/CMakeFiles/engine.dir/engine_context/context.cpp.o -c /home/bigsmarty/projects/3d_renderer/src/engine/engine_context/context.cpp",
-  "file": "/home/bigsmarty/projects/3d_renderer/src/engine/engine_context/context.cpp"
+  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -I/home/bigsmarty/projects/3d_renderer/third_party/spdlog/include -I/home/bigsmarty/projects/3d_renderer/third_party/volk -I/home/bigsmarty/projects/3d_renderer/third_party/vma/include -I/home/bigsmarty/projects/3d_renderer/include -O3 -DNDEBUG -g -std=gnu++20 -o src/engine/utils/CMakeFiles/utils.dir/utils.cpp.o -c /home/bigsmarty/projects/3d_renderer/src/engine/utils/utils.cpp",
+  "file": "/home/bigsmarty/projects/3d_renderer/src/engine/utils/utils.cpp"
+},
+{
+  "directory": "/home/bigsmarty/projects/3d_renderer/build",
+  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -I/home/bigsmarty/projects/3d_renderer/third_party/spdlog/include -I/home/bigsmarty/projects/3d_renderer/third_party/volk -I/home/bigsmarty/projects/3d_renderer/third_party/vma/include -I/home/bigsmarty/projects/3d_renderer/include -O3 -DNDEBUG -g -std=gnu++20 -o src/engine/utils/CMakeFiles/utils.dir/init_structs/init_structs.cpp.o -c /home/bigsmarty/projects/3d_renderer/src/engine/utils/init_structs/init_structs.cpp",
+  "file": "/home/bigsmarty/projects/3d_renderer/src/engine/utils/init_structs/init_structs.cpp"
+},
+{
+  "directory": "/home/bigsmarty/projects/3d_renderer/build",
+  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -DVMA_DEBUG_ALWAYS_DEDICATED_MEMORY=0 -DVMA_DEBUG_DONT_EXCEED_MAX_MEMORY_ALLOCATION_COUNT=0 -DVMA_DEBUG_GLOBAL_MUTEX=0 -DVMA_DEBUG_INITIALIZE_ALLOCATIONS=0 -DVMA_DYNAMIC_VULKAN_FUNCTIONS=0 -DVMA_RECORDING_ENABLED=0 -DVMA_STATIC_VULKAN_FUNCTIONS=1 -I/home/bigsmarty/projects/3d_renderer/third_party/spdlog/include -I/home/bigsmarty/projects/3d_renderer/third_party/volk -I/home/bigsmarty/projects/3d_renderer/third_party/vma/include -I/home/bigsmarty/projects/3d_renderer/include -O3 -DNDEBUG -g -std=gnu++20 -o src/engine/wrappers/allocated_image/CMakeFiles/allocated_image.dir/allocated_image.cpp.o -c /home/bigsmarty/projects/3d_renderer/src/engine/wrappers/allocated_image/allocated_image.cpp",
+  "file": "/home/bigsmarty/projects/3d_renderer/src/engine/wrappers/allocated_image/allocated_image.cpp"
+},
+{
+  "directory": "/home/bigsmarty/projects/3d_renderer/build",
+  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -DVMA_DEBUG_ALWAYS_DEDICATED_MEMORY=0 -DVMA_DEBUG_DONT_EXCEED_MAX_MEMORY_ALLOCATION_COUNT=0 -DVMA_DEBUG_GLOBAL_MUTEX=0 -DVMA_DEBUG_INITIALIZE_ALLOCATIONS=0 -DVMA_DYNAMIC_VULKAN_FUNCTIONS=0 -DVMA_RECORDING_ENABLED=0 -DVMA_STATIC_VULKAN_FUNCTIONS=1 -I/home/bigsmarty/projects/3d_renderer/third_party/spdlog/include -I/home/bigsmarty/projects/3d_renderer/third_party/volk -I/home/bigsmarty/projects/3d_renderer/third_party/vma/include -I/home/bigsmarty/projects/3d_renderer/include -O3 -DNDEBUG -g -std=gnu++20 -o src/engine/wrappers/pipeline/CMakeFiles/pipeline.dir/pipeline.cpp.o -c /home/bigsmarty/projects/3d_renderer/src/engine/wrappers/pipeline/pipeline.cpp",
+  "file": "/home/bigsmarty/projects/3d_renderer/src/engine/wrappers/pipeline/pipeline.cpp"
+},
+{
+  "directory": "/home/bigsmarty/projects/3d_renderer/build",
+  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -DVMA_DEBUG_ALWAYS_DEDICATED_MEMORY=0 -DVMA_DEBUG_DONT_EXCEED_MAX_MEMORY_ALLOCATION_COUNT=0 -DVMA_DEBUG_GLOBAL_MUTEX=0 -DVMA_DEBUG_INITIALIZE_ALLOCATIONS=0 -DVMA_DYNAMIC_VULKAN_FUNCTIONS=0 -DVMA_RECORDING_ENABLED=0 -DVMA_STATIC_VULKAN_FUNCTIONS=1 -I/home/bigsmarty/projects/3d_renderer/third_party/spdlog/include -I/home/bigsmarty/projects/3d_renderer/third_party/volk -I/home/bigsmarty/projects/3d_renderer/third_party/vma/include -I/home/bigsmarty/projects/3d_renderer/include -O3 -DNDEBUG -g -std=gnu++20 -o src/engine/context/CMakeFiles/context.dir/context.cpp.o -c /home/bigsmarty/projects/3d_renderer/src/engine/context/context.cpp",
+  "file": "/home/bigsmarty/projects/3d_renderer/src/engine/context/context.cpp"
+},
+{
+  "directory": "/home/bigsmarty/projects/3d_renderer/build",
+  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -DVMA_DEBUG_ALWAYS_DEDICATED_MEMORY=0 -DVMA_DEBUG_DONT_EXCEED_MAX_MEMORY_ALLOCATION_COUNT=0 -DVMA_DEBUG_GLOBAL_MUTEX=0 -DVMA_DEBUG_INITIALIZE_ALLOCATIONS=0 -DVMA_DYNAMIC_VULKAN_FUNCTIONS=0 -DVMA_RECORDING_ENABLED=0 -DVMA_STATIC_VULKAN_FUNCTIONS=1 -I/home/bigsmarty/projects/3d_renderer/third_party/spdlog/include -I/home/bigsmarty/projects/3d_renderer/third_party/volk -I/home/bigsmarty/projects/3d_renderer/third_party/vma/include -I/home/bigsmarty/projects/3d_renderer/include -O3 -DNDEBUG -g -std=gnu++20 -o src/engine/renderer/CMakeFiles/renderer.dir/renderer.cpp.o -c /home/bigsmarty/projects/3d_renderer/src/engine/renderer/renderer.cpp",
+  "file": "/home/bigsmarty/projects/3d_renderer/src/engine/renderer/renderer.cpp"
+},
+{
+  "directory": "/home/bigsmarty/projects/3d_renderer/build",
+  "command": "/usr/bin/c++ -DSHADERS_PATH=\\\"\\\" -DSPDLOG_COMPILED_LIB -DVMA_DEBUG_ALWAYS_DEDICATED_MEMORY=0 -DVMA_DEBUG_DONT_EXCEED_MAX_MEMORY_ALLOCATION_COUNT=0 -DVMA_DEBUG_GLOBAL_MUTEX=0 -DVMA_DEBUG_INITIALIZE_ALLOCATIONS=0 -DVMA_DYNAMIC_VULKAN_FUNCTIONS=0 -DVMA_RECORDING_ENABLED=0 -DVMA_STATIC_VULKAN_FUNCTIONS=1 -I/home/bigsmarty/projects/3d_renderer/third_party/spdlog/include -I/home/bigsmarty/projects/3d_renderer/third_party/volk -I/home/bigsmarty/projects/3d_renderer/third_party/vma/include -I/home/bigsmarty/projects/3d_renderer/include -I/home/bigsmarty/projects/3d_renderer/examples/triangle/include -I/home/bigsmarty/projects/3d_renderer/third_party/glm -isystem /usr/include/SDL2 -O3 -DNDEBUG -g -std=gnu++20 -o examples/triangle/CMakeFiles/triangle.dir/src/triangle.cpp.o -c /home/bigsmarty/projects/3d_renderer/examples/triangle/src/triangle.cpp",
+  "file": "/home/bigsmarty/projects/3d_renderer/examples/triangle/src/triangle.cpp"
 }
 ]

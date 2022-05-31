@@ -46,3 +46,4 @@ add_custom_target(
 )
 
 add_subdirectory("src")
+add_subdirectory("examples")

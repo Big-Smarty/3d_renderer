@@ -1,3 +1,5 @@
+#pragma once
+
 struct VkImageCreateInfo;
 struct VmaAllocationCreateInfo;
 struct VkImage_T;

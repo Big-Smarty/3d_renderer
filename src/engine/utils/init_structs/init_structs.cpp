@@ -1,4 +1,7 @@
 #include "engine/utils/init_structs/init_structs.hpp"
+#include <vector>
+
+#define VK_NO_PROTOTYPES
 #include <vulkan/vulkan_core.h>
 
 namespace bs::utils::init_structs {
@@ -57,5 +60,8 @@ template <> VkPipelineDynamicStateCreateInfo make_info() {
 }
 template <> VkPipelineLayoutCreateInfo make_info() {
   return {.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO};
+}
+template <> VkShaderModuleCreateInfo make_info() {
+  return {.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO};
 }
 } // namespace bs::utils::init_structs

@@ -12,5 +12,5 @@
 int main() {
   spdlog::set_level(spdlog::level::trace);
   spdlog::set_pattern("[%^%l%$] %v");
-  bs::engine::Engine();
+  bs::engine::Engine engine;
 }

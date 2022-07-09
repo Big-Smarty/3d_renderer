@@ -1,5 +1,0 @@
-add_subdirectory("allocated_image")
-add_subdirectory("pipeline")
-add_subdirectory("shader_module")
-add_library(wrappers wrappers.cpp)
-target_link_libraries(wrappers allocated_image pipeline shader_module)

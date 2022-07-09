@@ -15,6 +15,7 @@ public:
   ~Engine();
 
   bs::engine::utils::result::Result run();
+  bs::engine::utils::result::Result handle_events();
 private:
   bool m_running{1};
   context::Context m_context;

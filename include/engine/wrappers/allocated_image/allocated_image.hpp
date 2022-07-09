@@ -1,20 +1,15 @@
 #pragma once
 
-struct VkImageCreateInfo;
-struct VmaAllocationCreateInfo;
-struct VkImage_T;
-typedef struct VkImage_T *VkImage;
-struct VmaAllocator_T;
-typedef struct VmaAllocator_T *VmaAllocator;
-struct VmaAllocation_T;
-typedef struct VmaAllocation_T *VmaAllocation;
+#include <vulkan/vulkan_core.h>
+#include <vk_mem_alloc.h>
 
 namespace bs::wrappers::allocated_image {
 struct AllocatedImage {
 public:
   AllocatedImage(VmaAllocator _allocator,
                  const VkImageCreateInfo &_image_create_info,
-                 const VmaAllocationCreateInfo &_allocation_create_info);
+                 const VmaAllocationCreateInfo &_allocation_create_info,
+                 VkDevice &_device);
   ~AllocatedImage();
 
   VkImage *image() { return &m_image; };
@@ -22,6 +17,7 @@ public:
 
 private:
   VkImage m_image;
+  VkImageView m_image_view;
   VmaAllocation m_allocation;
 
   VmaAllocator m_allocator;

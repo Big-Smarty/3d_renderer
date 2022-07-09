@@ -6,6 +6,7 @@
 #include <cstdint>
 #include <exception>
 
+#include <SDL2/SDL.h>
 #include <SDL2/SDL_vulkan.h>
 
 #define VOLK_IMPLEMENTATION
@@ -127,7 +128,34 @@ Context::Context() {
 
   VK_CHECK(
       vkCreateSwapchainKHR(m_device, &swapchain_CI, nullptr, &m_swapchain));
-
+  uint32_t swapchain_image_count = 0;
+  VK_CHECK(vkGetSwapchainImagesKHR(m_device, m_swapchain,
+                                   &swapchain_image_count, nullptr));
+  m_swapchain_images.resize(swapchain_image_count);
+  VK_CHECK(vkGetSwapchainImagesKHR(m_device, m_swapchain,
+                                   &swapchain_image_count,
+                                   m_swapchain_images.data()));
+  m_swapchain_image_views.resize(m_swapchain_images.size());
+  for (int i = 0; i < 3; i++) {
+    VkImageViewCreateInfo swapchain_image_views_CI = {
+        .sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO,
+        .image = m_swapchain_images[i],
+        .viewType = VK_IMAGE_VIEW_TYPE_2D,
+        .format = VK_FORMAT_B8G8R8A8_SRGB,
+        .components = {VK_COMPONENT_SWIZZLE_R, VK_COMPONENT_SWIZZLE_G,
+                       VK_COMPONENT_SWIZZLE_B, VK_COMPONENT_SWIZZLE_A},
+        .subresourceRange =
+            {
+                .aspectMask = VK_IMAGE_ASPECT_COLOR_BIT,
+                .baseMipLevel = 0,
+                .levelCount = 1,
+                .baseArrayLayer = 0,
+                .layerCount = 1,
+            },
+    };
+    VK_CHECK(vkCreateImageView(m_device, &swapchain_image_views_CI, nullptr,
+                               &m_swapchain_image_views[i]));
+  }
   VmaAllocatorCreateInfo allocator_CI = {
       .physicalDevice = m_physical_device,
       .device = m_device,
@@ -154,24 +182,24 @@ Context::Context() {
       .usage = VMA_MEMORY_USAGE_AUTO,
   };
 
-  bs::wrappers::allocated_image::AllocatedImage temp_image(
-      m_allocator, depth_image_CI, depth_image_allocation_CI);
+  /*bs::wrappers::allocated_image::AllocatedImage temp_image(
+      m_allocator, depth_image_CI, depth_image_allocation_CI, m_device);
   m_depth_image =
       std::make_unique<bs::wrappers::allocated_image::AllocatedImage *>(
-          &temp_image);
+          &temp_image);*/
 
   VkCommandPoolCreateInfo command_pool_CI = {
       .sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO,
       .queueFamilyIndex = m_queue_family};
   VK_CHECK(vkCreateCommandPool(m_device, &command_pool_CI, nullptr,
                                &m_command_pool));
-  VkCommandBufferAllocateInfo command_buffer_AI = {
+  VkCommandBufferAllocateInfo command_buffer_CI = {
       .sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO,
       .commandPool = m_command_pool,
       .level = VK_COMMAND_BUFFER_LEVEL_PRIMARY,
       .commandBufferCount = 1,
   };
-  VK_CHECK(vkAllocateCommandBuffers(m_device, &command_buffer_AI,
+  VK_CHECK(vkAllocateCommandBuffers(m_device, &command_buffer_CI,
                                     &m_command_buffer));
 }
 Context::~Context() {

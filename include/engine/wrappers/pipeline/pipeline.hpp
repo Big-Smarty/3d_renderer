@@ -6,7 +6,7 @@ struct VkGraphicsPipelineCreateInfo;
 struct VkPipeline_T;
 typedef struct VkPipeline_T *VkPipeline;
 
-namespace bs::wrapper::pipeline {
+namespace bs::wrappers::pipeline {
 class Pipeline {
 public:
   Pipeline(const VkDevice &device,

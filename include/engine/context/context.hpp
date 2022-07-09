@@ -1,38 +1,14 @@
 #pragma once
 
-#include "engine/utils/utils.hpp"
-
-#include <memory>
-
 #include <SDL2/SDL.h>
-#include <cstdint>
-#include <vector>
+#include <volk.h>
 
-namespace bs::wrappers::allocated_image {
-class AllocatedImage;
-} // namespace bs::wrappers::allocated_image
-struct VkInstance_T;
-typedef struct VkInstance_T *VkInstance;
-struct VkPhysicalDevice_T;
-typedef struct VkPhysicalDevice_T *VkPhysicalDevice;
-struct VkDevice_T;
-typedef struct VkDevice_T *VkDevice;
-struct VkQueue_T;
-typedef struct VkQueue_T *VkQueue;
-struct VkSurfaceKHR_T;
-typedef struct VkSurfaceKHR_T *VkSurfaceKHR;
-struct VkSwapchainKHR_T;
-typedef struct VkSwapchainKHR_T *VkSwapchainKHR;
-struct VkImage_T;
-typedef struct VkImage_T *VkImage;
-struct VkImageView_T;
-typedef struct VkImageView_T *VkImageView;
-struct VkCommandPool_T;
-typedef struct VkCommandPool_T *VkCommandPool;
-struct VkCommandBuffer_T;
-typedef struct VkCommandBuffer_T *VkCommandBuffer;
-struct VmaAllocator_T;
-typedef struct VmaAllocator_T *VmaAllocator;
+#include "engine/utils/utils.hpp"
+#include "engine/wrappers/allocated_image/allocated_image.hpp"
+
+#include <cstdint>
+#include <memory>
+#include <vector>
 
 namespace bs::engine::context {
 class Context {
@@ -45,10 +21,19 @@ public:
 
   ~Context();
 
-  VkInstance instance() { return m_instance; };
-  VkPhysicalDevice physical_Device() { return m_physical_device; };
-  VkDevice device() { return m_device; };
-  VkQueue queue() { return m_queue; };
+  VkInstance instance() { return m_instance; }
+  VkPhysicalDevice physical_Device() { return m_physical_device; }
+  VkDevice device() { return m_device; }
+  VkQueue queue() { return m_queue; }
+
+  VkCommandBuffer command_buffer() { return m_command_buffer; }
+  std::shared_ptr<bs::wrappers::allocated_image::AllocatedImage *>
+  depth_image() {
+    return m_depth_image;
+  }
+  std::vector<VkImageView> swapchain_image_views() {
+    return m_swapchain_image_views;
+  }
 
 private:
   std::vector<const char *> m_instance_extensions;
@@ -69,8 +54,12 @@ private:
   VkCommandPool m_command_pool;
   VkCommandBuffer m_command_buffer;
 
-  std::unique_ptr<bs::wrappers::allocated_image::AllocatedImage *>
+  VkViewport *m_viewport;
+
+  std::shared_ptr<bs::wrappers::allocated_image::AllocatedImage *>
       m_depth_image;
+  std::shared_ptr<bs::wrappers::allocated_image::AllocatedImage *>
+      m_color_attachment;
 
   VmaAllocator m_allocator{};
 

@@ -4,7 +4,7 @@
 #define VK_NO_PROTOTYPES
 #include <vulkan/vulkan_core.h>
 
-namespace bs::utils::init_structs {
+namespace bs::engine::utils::init_structs {
 template <> VkApplicationInfo make_info() {
   return {.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO,
           .pApplicationName = "",
@@ -64,4 +64,4 @@ template <> VkPipelineLayoutCreateInfo make_info() {
 template <> VkShaderModuleCreateInfo make_info() {
   return {.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO};
 }
-} // namespace bs::utils::init_structs
+} // namespace bs::engine::utils::init_structs

@@ -1,10 +1,9 @@
 #pragma once
 
-#include <SDL2/SDL.h>
-#include <volk.h>
-
 #include "engine/utils/utils.hpp"
 #include "engine/wrappers/allocated_image/allocated_image.hpp"
+
+#include <SDL2/SDL.h>
 
 #include <cstdint>
 #include <memory>
@@ -25,10 +24,12 @@ public:
   VkPhysicalDevice physical_Device() { return m_physical_device; }
   VkDevice device() { return m_device; }
   VkQueue queue() { return m_queue; }
-
+  VkSwapchainKHR swapchain() { return m_swapchain; }
+  VkSwapchainKHR *swapchain_ptr() { return &m_swapchain; }
   VkCommandBuffer command_buffer() { return m_command_buffer; }
-  std::shared_ptr<bs::wrappers::allocated_image::AllocatedImage *>
-  depth_image() {
+  VkCommandBuffer *command_buffer_ptr() { return &m_command_buffer; }
+
+  std::shared_ptr<bs::wrappers::allocated_image::AllocatedImage> depth_image() {
     return m_depth_image;
   }
   std::vector<VkImageView> swapchain_image_views() {
@@ -56,9 +57,8 @@ private:
 
   VkViewport *m_viewport;
 
-  std::shared_ptr<bs::wrappers::allocated_image::AllocatedImage *>
-      m_depth_image;
-  std::shared_ptr<bs::wrappers::allocated_image::AllocatedImage *>
+  std::shared_ptr<bs::wrappers::allocated_image::AllocatedImage> m_depth_image;
+  std::shared_ptr<bs::wrappers::allocated_image::AllocatedImage>
       m_color_attachment;
 
   VmaAllocator m_allocator{};

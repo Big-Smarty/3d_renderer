@@ -8,11 +8,7 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_vulkan.h>
-
-#define VOLK_IMPLEMENTATION
-#include <volk.h>
-#define VMA_IMPLEMENTATION
-#include <vk_mem_alloc.h>
+#include <vulkan/vulkan_core.h>
 
 namespace bs::engine::context {
 Context::Context() {
@@ -20,8 +16,6 @@ Context::Context() {
   m_window = SDL_CreateWindow("BS Engine (improved)", SDL_WINDOWPOS_CENTERED,
                               SDL_WINDOWPOS_CENTERED, 640, 480,
                               SDL_WINDOW_VULKAN | SDL_WINDOW_SHOWN);
-
-  VK_CHECK(volkInitialize());
 
   uint32_t instance_extension_count{0};
   SDL_Vulkan_GetInstanceExtensions(m_window, &instance_extension_count,
@@ -49,8 +43,6 @@ Context::Context() {
       .ppEnabledExtensionNames = m_instance_extensions.data(),
   };
   VK_CHECK(vkCreateInstance(&instance_CI, nullptr, &m_instance));
-
-  volkLoadInstance(m_instance);
 
   SDL_Vulkan_CreateSurface(m_window, m_instance, &m_surface);
 
@@ -104,8 +96,7 @@ Context::Context() {
       .ppEnabledExtensionNames = m_device_extensions.data(),
   };
   VK_CHECK(vkCreateDevice(m_physical_device, &device_CI, nullptr, &m_device));
-
-  volkLoadDevice(m_device);
+  vkGetDeviceQueue(m_device, 0, 0, &m_queue);
 
   const uint32_t &queue_family_indices = {1};
   VkSwapchainCreateInfoKHR swapchain_CI = {
@@ -122,7 +113,7 @@ Context::Context() {
       .pQueueFamilyIndices = &queue_family_indices,
       .preTransform = VK_SURFACE_TRANSFORM_IDENTITY_BIT_KHR,
       .compositeAlpha = VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR,
-      .presentMode = VK_PRESENT_MODE_FIFO_KHR,
+      .presentMode = VK_PRESENT_MODE_MAILBOX_KHR,
       .clipped = VK_TRUE,
   };
 
@@ -182,11 +173,24 @@ Context::Context() {
       .usage = VMA_MEMORY_USAGE_AUTO,
   };
 
-  /*bs::wrappers::allocated_image::AllocatedImage temp_image(
-      m_allocator, depth_image_CI, depth_image_allocation_CI, m_device);
+  VkImageViewCreateInfo image_view_CI = {
+      .sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO,
+      .viewType = VK_IMAGE_VIEW_TYPE_2D,
+      .format = VK_FORMAT_D32_SFLOAT,
+      .subresourceRange =
+          {
+              .aspectMask = VK_IMAGE_ASPECT_DEPTH_BIT,
+              .baseMipLevel = 0,
+              .levelCount = 1,
+              .baseArrayLayer = 0,
+              .layerCount = 1,
+          },
+  };
   m_depth_image =
-      std::make_unique<bs::wrappers::allocated_image::AllocatedImage *>(
-          &temp_image);*/
+      std::make_unique<bs::wrappers::allocated_image::AllocatedImage>(
+          bs::wrappers::allocated_image::AllocatedImage(
+              m_allocator, depth_image_CI, image_view_CI,
+              depth_image_allocation_CI, m_device));
 
   VkCommandPoolCreateInfo command_pool_CI = {
       .sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO,

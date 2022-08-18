@@ -1,6 +1,7 @@
 #pragma once
 
 #include <spdlog/spdlog.h>
+#include "init_structs/init_structs.hpp"
 
 #define VK_CHECK(x)                                                            \
   {                                                                            \

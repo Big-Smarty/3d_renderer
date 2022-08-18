@@ -1,9 +1,7 @@
 #pragma once
+#define VK_NO_PROTOTYPES
 #include "engine/engine.hpp"
-
-namespace bs::engine::wrappers::shader_module {
-  struct ShaderModule;
-}
+#include "engine/wrappers/pipeline/pipeline.hpp"
 
 namespace bs::examples::triangle {
 class Triangle {
@@ -12,6 +10,6 @@ public:
   ~Triangle();
 
 private:
-  std::vector<bs::engine::wrappers::shader_module::ShaderModule> m_shader_modules;
+  bs::engine::Engine m_engine;
 };
 } // namespace bs::examples::triangle

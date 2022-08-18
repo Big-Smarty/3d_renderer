@@ -3,17 +3,21 @@
 #include "engine/utils/utils.hpp"
 
 #include <cstdint>
+#include <filesystem>
 #include <fstream>
 #include <vector>
 
-#define VK_NO_PROTOTYPES
-#include <volk.h>
-
 namespace bs::engine::wrappers::shader_module {
-ShaderModule::ShaderModule(const char *path, VkDevice &device)
+ShaderModule::ShaderModule(const char *path, const VkDevice &device)
     : m_device(device) {
   std::vector<char> shader_content;
-  std::fstream shader_file(path, std::ios::binary | std::ios::ate);
+  if (std::filesystem::exists(path)) {
+    spdlog::trace("{0} found", path);
+  } else {
+    spdlog::error("{0} not found!", path);
+    exit(-1);
+  }
+  std::ifstream shader_file(path, std::ios::binary | std::ios::ate);
   if (!shader_file.is_open()) {
     spdlog::error("Failed to open shader file: {0}", path);
     exit(-1);
@@ -24,11 +28,13 @@ ShaderModule::ShaderModule(const char *path, VkDevice &device)
   shader_file.close();
 
   auto shader_module_CI =
-      bs::utils::init_structs::make_info<VkShaderModuleCreateInfo>();
+      bs::engine::utils::init_structs::make_info<VkShaderModuleCreateInfo>();
   shader_module_CI.codeSize = shader_content.size();
   shader_module_CI.pCode = reinterpret_cast<uint32_t *>(shader_content.data());
   VK_CHECK(vkCreateShaderModule(m_device, &shader_module_CI, nullptr,
                                 &m_shader_module));
 }
-ShaderModule::~ShaderModule() {}
+ShaderModule::~ShaderModule() {
+  vkDestroyShaderModule(m_device, m_shader_module, nullptr);
+}
 } // namespace bs::engine::wrappers::shader_module

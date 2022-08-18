@@ -2,7 +2,7 @@
 
 #include "engine/utils/utils.hpp"
 
-namespace bs::wrappers::pipeline {
+namespace bs::engine::wrappers::pipeline {
 Pipeline::Pipeline(const VkDevice &device,
                    const VkGraphicsPipelineCreateInfo &graphics_pipeline_CI)
     : m_device(device) {

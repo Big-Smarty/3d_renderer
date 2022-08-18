@@ -1,24 +1,22 @@
 #pragma once
 
-struct VkDevice_T;
-typedef struct VkDevice_T *VkDevice;
-struct VkShaderModule_T;
-typedef struct VkShaderModule_T *VkShaderModule;
-struct VkShaderModuleCreateInfo;
+#include <vulkan/vulkan_core.h>
 
 namespace bs::engine::wrappers::shader_module {
 class ShaderModule {
 public:
-  ShaderModule(const char *path, VkDevice &device);
+  ShaderModule(const char *path, const VkDevice &device);
   ShaderModule(const ShaderModule &) = delete;
   ShaderModule(ShaderModule &&) noexcept;
   ShaderModule &operator=(const ShaderModule &) = delete;
   ShaderModule &operator=(ShaderModule &&) = delete;
   ~ShaderModule();
 
+  VkShaderModule shader_module() { return m_shader_module; }
+
 private:
   const char *m_path;
-  VkDevice &m_device;
+  const VkDevice &m_device;
   VkShaderModule m_shader_module;
 };
 } // namespace bs::engine::wrappers::shader_module

@@ -1,12 +1,8 @@
 #pragma once
 
-#include <engine/context/context.hpp>
+#include <vulkan/vulkan_core.h>
 
-struct VkGraphicsPipelineCreateInfo;
-struct VkPipeline_T;
-typedef struct VkPipeline_T *VkPipeline;
-
-namespace bs::wrappers::pipeline {
+namespace bs::engine::wrappers::pipeline {
 class Pipeline {
 public:
   Pipeline(const VkDevice &device,
@@ -17,8 +13,10 @@ public:
   Pipeline &operator=(Pipeline &&) = delete;
   ~Pipeline();
 
+  VkPipeline pipeline() { return m_pipeline; }
+
 private:
   const VkDevice &m_device;
   VkPipeline m_pipeline;
 };
-} // namespace bs::wrapper::pipeline
+} // namespace bs::wrappers::pipeline
